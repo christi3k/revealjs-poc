@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="reveal.js/css/reveal.css">
     <link rel="stylesheet" href="reveal.js/css/theme/sky.css">
     <!--<link rel="stylesheet" href="hashicorp-white.css">-->
-    <!--<link rel="stylesheet" href="local.css">-->
+    <link rel="stylesheet" href="css/local.css">
 
 		<!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="css/atom-one-dark.css">
@@ -27,18 +27,61 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section data-background-image="images/consul-background.001.png">
-          <img class="plain" width="30%" src="images/Consul_PrimaryLogo_FullColor.png">
+				<section data-background-image="images/common/consul-background.001.png" class="title-slide">
+          <img class="plain left" width="30%" src="images/common/Consul_PrimaryLogo_FullColor.png">
           <h1>Consul Service Mesh</h1>
+          <h2>Distributed service networking layer to connect, secure, and configure services.</h2>
           <h3>Christie Koehler</br>
           City HUG - Month Year</h3>
             <aside class="notes">
 		Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit »S« on your keyboard).
             </aside>
         </section>
+        <section class="presenter-slide">
+          <img class="plain left" src="images/common/headshot-placeholder-250px.png" alt="presenter headshot"/>
+          <h1>Presenter Name</h1>
+          <h2>Title, Affiliation<br />
+            @socialmedia
+          </h2>
+            <aside class="notes">
+            [Update slide with your photo, if desired, otherwise remove, your name, affiliation, and social media info. Update speaker notes with any biographical information you want to include.]
+            </aside>
+        </section>
+        <section>
+          <h1>HashiCorp Suite</h1>
+          <img class="left" src="images/common/hashicorp-suite.png" alt=""/>
+          <aside class="notes">
+            HashiCorp's goal is to make tools that support application delivery.
+
+            <strong>Layers.</strong> First, how do we provision the underlying infrastructure? Terraform, along with Packer and Vagrant. How do we secure this infrastructure? Vault. How do we run applications across multiple environments? Nomad. How do we connect and wire all these things together across multiple environments? Consul.
+
+HashiCorp Tools are designed to be Simple, Modular, Composable. (See Tao of HashiCorp.) They work great together, but also are designed to work with your existing infrastructure and tooling.
+
+Open source workflows address technical complexity
+Enterprise workflows address organizational complexity
+          </aside>
+        </section>
 				<section>
-          <h2>From Monoliths to Microservices</h2>
+          <h1>From <em>Monoliths</em> to <em>Microservices</em></h1>
+          <h2>A trend toward dynamic infrastructure</h2>
+          <aside class="notes">
+           One thing we're all noticing, regardless of what stage in the journey we're currently at, is this trend away from monolithic, static infrastructure towards microservices and dynamic infrastructure. What do I mean by this? Let's take a look at where we're coming from... 
+          </aside>
 				</section>
+        <section>
+          <h1>Monolith</h1>
+          <img class="plain left" width="60%" src="images/consul-service-mesh/monolith-01.png" alt=""/>
+          <aside class="notes">
+           In a monolith, we have several many subsystems deployed as a single application. Possibly on a dedicated or virtualized server that was deployed and is maintained manually or with a collection of customized scripts. 
+          </aside>
+        </section>
+        <section>
+          <h1>Monolith</h1>
+          <img class="plain left" width="60%" src="images/consul-service-mesh/monolith-02.png" alt=""/>
+          <aside class="notes">
+            When subsystem A wants to call subsystem B, this is done by an in-memory function call. Data is shared in process, and we don’t need to use the network.
+          </aside>
+        </section>
 				<section>
           <h2>Code Sample</h2>
           	<pre><code data-trim data-noescape>
@@ -59,6 +102,7 @@
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
+        history: true,
 				dependencies: [
 					{ src: 'reveal.js/plugin/markdown/marked.js' },
 					{ src: 'reveal.js/plugin/markdown/markdown.js' },

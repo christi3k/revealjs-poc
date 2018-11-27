@@ -15,14 +15,17 @@ body {
 .reveal h5,
 .reveal h6 {
   letter-spacing: -0.05em;
+  text-transform: none;
   text-align: left;
 }
 .reveal h1 {
-  font-size: 2.77em; 
+  font-size: 1.70em; 
+  text-transform: none;
+  font-weight: bold;
 }
 
 .reveal h2 {
-  font-size: 2.11em; 
+  font-size: 1.00em; 
 }
 
 .reveal h3 {
@@ -49,3 +52,24 @@ body {
   text-transform: none;
 }
 
+.reveal section.presenter-slide h1 {
+  font-size: 1.77em; 
+  text-transform: none;
+  font-weight: bold;
+}
+
+.reveal section.presenter-slide h2 {
+  font-size: .75em; 
+  text-transform: none;
+  color: #c62a71;
+}
+
+.reveal section.presenter-slide h3 {
+  font-size: .75em; 
+  text-transform: none;
+}
+
+.reveal h1 em {
+  color: #c62a71;
+  font-style: normal;
+}
