@@ -48,8 +48,10 @@ The second option is to run a local server. This requires that you install some 
 
 First, follow the [Full setup](https://github.com/hakimel/reveal.js#full-setup) installation directions of reveal.js.
 
-Step 6 of those instructions is slightly different for our setup. In our case, becuase reveal.js is included as a git submodule and is in a child directory, you need to specify the root directory as such:
+Step 6 of those instructions is slightly different for our setup. In our case, becuase reveal.js is included as a git submodule and is in a child directory, you need to change into that directory and also specify the root directory:
 
 ```
+$ cd reveal.js
+
 $ npm start -- --root='../'
 ```
