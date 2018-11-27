@@ -1,0 +1,51 @@
+/*.reveal .slides { position: absolute; }*/
+
+body {
+  background: none;
+}
+.reveal section img.left {
+  /*align: left;*/
+  display: block;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  letter-spacing: -0.05em;
+  text-align: left;
+}
+.reveal h1 {
+  font-size: 2.77em; 
+}
+
+.reveal h2 {
+  font-size: 2.11em; 
+}
+
+.reveal h3 {
+  font-size: 1.55em; 
+}
+
+.reveal h4 {
+  font-size: 1em; 
+}
+
+.reveal section.title-slide h1 {
+  font-size: 2.77em; 
+  font-weight: bold;
+}
+
+.reveal section.title-slide h2 {
+  font-size: 1.00em; 
+  text-transform: none;
+  color: #c62a71;
+}
+
+.reveal section.title-slide h3 {
+  font-size: .75em; 
+  text-transform: none;
+}
+
