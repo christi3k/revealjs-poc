@@ -6,4 +6,6 @@ See the project's [README](https://github.com/christi3k/revealjs-poc/blob/gh-pag
 
 ## Table of Contents
 
-- [Consul Service Mesh](Consul-Service-Mesh.html) -- An introductory talk on Consul
+All of the presentations below can be run directly from your browser. Click on the link of the presentation you would like to view/run. Press "S" to see speaker notes, including timer.
+
+- [Consul Service Mesh](Consul-Service-Mesh.html) -- An introductory talk on Consul (***in progress!***)
