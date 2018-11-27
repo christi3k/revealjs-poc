@@ -12,7 +12,7 @@ In either case, we recommend you first for the repository to your own GitHub acc
 
 ## Basic Usage
 
-All of the presentations in this repository can be run directly in the browswer from GitHub pages. The url for each of the presentations is `https://christi3k.github.io/revealjs-poc/` followed by the filename of the presentation. There is also an [index of all presentations](index.md).
+All of the presentations in this repository can be run directly in the browswer from GitHub pages. The url for each of the presentations is `https://christi3k.github.io/revealjs-poc/` followed by the filename of the presentation. There is also an [index of all presentations](https://christi3k.github.io/revealjs-poc/) at that base url.
 
 If you have forked this repository, you'll need to substitute your Github username in the url above. For example, if your GitHub username is rsmith1959, then your GitHub Pages url will be `https://rsmith1959.github.io/revealjs-poc/`.
 
