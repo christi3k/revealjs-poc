@@ -3,10 +3,6 @@
 body {
   background: none;
 }
-.reveal section img.left {
-  /*align: left;*/
-  display: block;
-}
 
 .reveal h1,
 .reveal h2,
@@ -25,7 +21,8 @@ body {
 }
 
 .reveal h2 {
-  font-size: 1.00em; 
+  font-size: 1.05em; 
+  color: #c62a71;
 }
 
 .reveal h3 {
@@ -73,3 +70,33 @@ body {
   color: #c62a71;
   font-style: normal;
 }
+
+.reveal section img.left {
+  /*align: left;*/
+  display: block;
+  margin-right: 50px;
+}
+
+.reveal section div.vcentered {
+  display: flex;
+  align-items: center;
+}
+
+.reveal section div.vcentered span {
+  text-align: left;
+}
+
+.reveal section div.vcentered span em {
+  color: #c62a71;
+  font-style: normal;
+}
+
+.reveal section ul.left {
+  display: block;
+	margin: 0 0 0 1em;
+}
+
+.reveal section ul.left li {
+  font-size: 0.9em;
+}
+

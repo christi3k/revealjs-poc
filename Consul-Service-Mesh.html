@@ -68,18 +68,122 @@ Enterprise workflows address organizational complexity
            One thing we're all noticing, regardless of what stage in the journey we're currently at, is this trend away from monolithic, static infrastructure towards microservices and dynamic infrastructure. What do I mean by this? Let's take a look at where we're coming from... 
           </aside>
 				</section>
+				<section>
+          <h1><em>Monoliths:</em> How do they even work?</h1>
+          <aside class="notes">
+            A lot of us have experience deploying monolith apps. Let's take a look at how those often work.
+          </aside>
+				</section>
         <section>
           <h1>Monolith</h1>
-          <img class="plain left" width="60%" src="images/consul-service-mesh/monolith-01.png" alt=""/>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/monolith-01.png" alt=""/>
+            <span>Many subsystems deployed as a single application.</span>
+          </div>
           <aside class="notes">
            In a monolith, we have several many subsystems deployed as a single application. Possibly on a dedicated or virtualized server that was deployed and is maintained manually or with a collection of customized scripts. 
           </aside>
         </section>
         <section>
           <h1>Monolith</h1>
-          <img class="plain left" width="60%" src="images/consul-service-mesh/monolith-02.png" alt=""/>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/monolith-02.png" alt=""/>
+            <span>Subsystem calls stay within node. No network calls.</span> 
+          </div>
           <aside class="notes">
             When subsystem A wants to call subsystem B, this is done by an in-memory function call. Data is shared in process, and we don’t need to use the network.
+          </aside>
+        </section>
+        <section>
+          <h1>Monolith</h1>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/monolith-03.png" alt=""/>
+            <span>Static IP addressing typical for network calls.</span>
+          </div>
+          <aside class="notes">
+            When a subsystem needed to communicate outside of its node, often static IP addresses were used.
+          </aside>
+        </section>
+        <section>
+          <h1>Monolith</h1>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/monolith-04.png" alt=""/>
+            <span>To scale, deploy many copies with load balancer.</span>
+          </div>
+          <aside class="notes">
+            As we need to scale, we would deploy more copies of our monolith and use a load balancer to spread traffic.
+          </aside>
+        </section>
+        <section>
+          <h1>Monolith</h1>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/monolith-05.png" alt=""/>
+            <span>Firewalls for security.</span>
+          </div>
+          <aside class="notes">
+            To secure our infrastructure, we use firewalls to ensure traffic only flows between the appropriate zones. A DMZ firewall to [something something] and a zone firewall to [something something].
+          </aside>
+        </section>
+				<section>
+          <h1>What about <em>Microservices</em>?</h1>
+          <aside class="notes">
+            Okay, now how about microservices?
+          </aside>
+				</section>
+        <section>
+          <h1>Microservices</h1>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/microservices-01.png" alt=""/>
+            <span>Subsystems now deployed separately. More <em>agile</em>.</span>
+          </div>
+          <aside class="notes">
+            Now let's look at how microservices architecture [deployments?] works. With microservices, you're breaking out these subsystems that were previously deployed together, and deploying them separately, possibly on different machines, or even data centers. The sub systems now talk [interact with?] to each other via networked APIs.
+
+Decoupling systems into microservices provides greater operational efficiency. It allows us to get away from the "lowest common denominator" w/r/t development & deployment cycles. Each subsystem can move at its own pace.
+          </aside>
+        </section>
+        <section>
+          <h1>Microservices</h1>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/microservices-02.png" alt=""/>
+            <span>Agility comes with new operational challenges.</span>
+          </div>
+          <aside class="notes">
+            While we gain agility during development, there is no free lunch! We’ve now adopted a set of new operational challenges. For example, in a monolithic architecture, when A wanted to call B, it was a simple in-memory function call. Now B must be reached over the network which means A needs to know how to reach B.
+          </aside>
+        </section>
+        <section>
+          <h1>Microservices</h1>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/microservices-03.png" alt=""/>
+            <span>e.g., Static addressing difficult to scale with multiplicity of instances.</span>
+          </div>
+          <aside class="notes">
+            We don’t want to use a static address for B for several reasons. We may want multiple copies of B for scaling or availability. We also can’t depend on static IPs in a cloud environment, where dynamic IPs are the norm.
+          </aside>
+        </section>
+        <section>
+          <h1>Microservices</h1>
+          <div class="vcentered">
+            <img class="plain left" height="300px" src="images/consul-service-mesh/microservices-04.png" alt=""/>
+            <span>Load balancer anti-pattern.</span>
+          </div>
+          <aside class="notes">
+           Another common anti-pattern is to front B with a load balancer. This introduces a single point of failure, the load balancer, doubles the number of network hops between services, and increases our costs. 
+          </aside>
+        </section>
+        <section>
+          <h1>Additional challenges</h1>
+          <h2>Clouds & Containers</h2>
+          <ul class="left">
+            <!--this is a test of fragments; don't have to keep if it's too much clicking-->
+            <li class="fragment fade-in">Dynamic IP Addresses</li>
+            <li class="fragment fade-in">Higher Failure Rate</li>
+            <li class="fragment fade-in">Ephemeral Infrastructure</li>
+            <li class="fragment fade-in">Complex Network Topology</li>
+          </ul>
+          <aside class="notes">
+           Adding to our challenges, is a broad adoption of public clouds and containers. In these environments, we typically have dynamic IPs, higher failure rates, and ephemeral infrastructure that can scale up/down quickly and have a short lifespan. Paired with a complex network topology, our challenges get compounded.
           </aside>
         </section>
 				<section>
