@@ -71,10 +71,23 @@ body {
   font-style: normal;
 }
 
+.reveal section img {
+  border: 1px solid #333;
+}
+
 .reveal section img.left {
   /*align: left;*/
   display: block;
   margin-right: 50px;
+}
+
+.reveal section div.vtop {
+  display: flex;
+  align-items: top;
+}
+
+.reveal section div.vtop img {
+  /*flex-basis: content;*/
 }
 
 .reveal section div.vcentered {
@@ -93,10 +106,20 @@ body {
 
 .reveal section ul.left {
   display: block;
-	margin: 0 0 0 1em;
+	margin: 0 1em 0 1em;
 }
 
 .reveal section ul.left li {
   font-size: 0.9em;
 }
 
+.reveal pre {
+  margin: 0px;
+  font-size: 0.40em;
+}
+
+.faded {
+	zoom: 1;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}

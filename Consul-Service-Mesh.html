@@ -175,26 +175,277 @@ Decoupling systems into microservices provides greater operational efficiency. I
         <section>
           <h1>Additional challenges</h1>
           <h2>Clouds & Containers</h2>
-          <ul class="left">
-            <!--this is a test of fragments; don't have to keep if it's too much clicking-->
-            <li class="fragment fade-in">Dynamic IP Addresses</li>
-            <li class="fragment fade-in">Higher Failure Rate</li>
-            <li class="fragment fade-in">Ephemeral Infrastructure</li>
-            <li class="fragment fade-in">Complex Network Topology</li>
-          </ul>
+          <div class="vcentered">
+            <ul class="left">
+              <!--this is a test of fragments; don't have to keep if it's too much clicking-->
+              <li class="fragment fade-in">Dynamic IP Addresses</li>
+              <li class="fragment fade-in">Higher Failure Rate</li>
+              <li class="fragment fade-in">Ephemeral Infrastructure</li>
+              <li class="fragment fade-in">Complex Network Topology</li>
+            </ul>
+            <img class="plain right" width="300px;" src="images/common/hc-icon-cloud.png" />
+          </div>
           <aside class="notes">
            Adding to our challenges, is a broad adoption of public clouds and containers. In these environments, we typically have dynamic IPs, higher failure rates, and ephemeral infrastructure that can scale up/down quickly and have a short lifespan. Paired with a complex network topology, our challenges get compounded.
           </aside>
         </section>
+        <section>
+          <h1>Service Mesh</h1>
+          <div class="vcentered fragment fade-in">
+            <img class="left" width="200px" src="images/consul-service-mesh/service-discovery.png" alt=""/>
+            Service Discovery
+          </div>
+          <div class="vcentered fragment fade-in">
+            <img class="left" width="200px" src="images/consul-service-mesh/service-segmentation.png" alt=""/>
+            Service Segmentation
+          </div>
+          <div class="vcentered fragment fade-in">
+            <img class="left" width="200px" src="images/consul-service-mesh/service-configuration.png" alt=""/>
+            Service Configuration 
+          </div>
+          <aside class="notes">
+          We think of these dynamic infrastructure challenges as falling into three main buckets, which are collectively addressed by a "service mesh" solution:
+
+          Service Discovery. Connect services with a dynamic registry
+          Service Configuration. Configure services with runtime configs
+          Service Segmentation. Secure services based on identity
+          </aside>
+        </section>
+        <section>
+          <img class="plain" src="images/common/Consul_PrimaryLogo_FullColor.png" alt=""/>
+        </section>
+        <aside class="notes">
+         With the release of a new set of features we call "Connect", Consul is now this complete service mesh solution. 
+        </aside>
+        <section>
+          <h1>About Consul</h1>
+          <ul class="left">
+            <li>Launched in 2014</li>
+            <li>12K+ GitHub Stars</li>
+            <li>1M+ Downloads monthly</li>
+            <li>Customers running 50,000+ agents</li>
+          </ul>
+        </section>
+        <aside class="notes">
+        For those who haven’t heard of Consul, it was originally launched in 2014, and has been under active development since. While these are vanity metrics, they are a useful proxy for usage and interest in the project. Consul has over 12K+ stars on GitHub, and does more than 1M+ downloads monthly. We know of single customers running more than 50K agents as part of a single cluster. 
+        </aside>
+        <section>
+          <h1>Public Users</h1>
+          <img class="plain" src="images/consul-service-mesh/consul-public-users.png" alt="" />
+        </section>
+        <aside class="notes">
+        Here is a few of the companies who have publicly talked about their use of Consul. There is a broad range of companies, including born in the cloud startups like Stripe, literal clouds like DigitalOcean, and large traditional businesses like CapitalOne or UBS Bank. For many of these folks, Consul underpins their core infrastructure. 
+        </aside>
+        <section>
+          <h1>Consul Basics</h1>
+          <div class="vtop">
+            <ul class="left">
+              <li>single binary, run in client or server mode</li>
+              <li>agent runs on every single node</li>
+              <li>servers elect a leader</li>
+              <li>requests forwarded via local client</li>
+            </ul>
+          <img class="" width="50%" height="50%" src="images/consul-service-mesh/consul-architechture.png" alt="" />
+          </div>
+          <aside class="notes">
+          We won't go into depth about Consul's architecture or how to deploy it in your infrastructure, but let's go over the basics so you understand enough about how Consul works so that the next bit of discussion makes sense.
+
+Consul comes as a single binary that you run in either client or server mode. There's also a dev mode for for experimenting, which of course you should never run in production.
+
+You run a Consul agent on every node in your infrastructure. You usually want to run at least 3 server agents (on dedicated nodes?). Those Consul servers elect a leader and handle data replication using the Raft protocol. Clients participate in the gossip pool. All requests are forwarded through the local Consul agent.
+          </aside>
+        </section>
+        <section>
+          <h1>Service Mesh</h1>
+          <div class="vcentered">
+            <img class="left" width="200px" src="images/consul-service-mesh/service-discovery.png" alt=""/>
+            Service Discovery
+          </div>
+          <div class="vcentered faded">
+            <img class="left" width="200px" src="images/consul-service-mesh/service-segmentation.png" alt=""/>
+            Service Segmentation
+          </div>
+          <div class="vcentered faded">
+            <img class="left" width="200px" src="images/consul-service-mesh/service-configuration.png" alt=""/>
+            Service Configuration 
+          </div>
+          <aside class="notes">
+            This bring us to discovery of services in the network. What do we need for service discovery?
+          </aside>
+        </section>
+        <section>
+          <h1>Service Discovery</h1>
+          <div class="vcentered">
+            <img class="plain left" height="400px" src="images/consul-service-mesh/service-registry-01.png" alt=""/>
+            <span>Services register themselves in a central registry.</span>
+          </div>
+          <aside class="notes">
+           To perform service discovery, we first need a registry of running services. Services can then register to mark themselves as available.
+          </aside>
+        </section>
+        <section>
+          <h1>Service Discovery</h1>
+          <div class="vcentered">
+            <img class="plain left" height="400px" src="images/consul-service-mesh/service-registry-02.png" alt=""/>
+            <span>Services query registry for healthy instances of upstream services.</span>
+          </div>
+          <aside class="notes">
+           When a service wants to communicate with any other service, it can query the registry for the currently healthy instances of the upstream service. This allows the registry to filter out any unhealthy or failed services. 
+          </aside>
+        </section>
+        <section>
+          <h1>Service Discovery</h1>
+          <div class="vcentered">
+            <img class="plain left" height="400px" src="images/consul-service-mesh/service-registry-03.png" alt=""/>
+            <span>Downstream service connects directly to upstream service</span>
+          </div>
+          <aside class="notes">
+            Finally the downstream service connects directly to the upstream service. With a highly available registry, we have no static IPs or single points of failure. Services can scale up/down without updating any load balancers.
+          </aside>
+        </section>
+        <section>
+          <h1>Service Discovery</h1>
+          <div class="vcentered">
+            <img class="plain left" height="400px" src="images/consul-service-mesh/service-registry-04.png" alt=""/>
+            <span>
+              Consul acts like a <em>dynamic</em> registry.
+              <!--<ul class="fragment fade-in">-->
+                <!--<li>Registry of Nodes, Services, Checks</li>-->
+                <!--<li>DNS and HTTP APIs</li>-->
+                <!--<li>Web ui</li>-->
+                <!--<li>Load balancing</li>-->
+                <!--<li>health checks</li>-->
+                <!--<li>multi-datacenter</li>-->
+              <!--</ul>-->
+            </span>
+          </div>
+          <aside class="notes">
+            Consul acts like a dynamic registry. This registry contains all the nodes and services in our infrastructure. Those nodes and services can also have associated health checks, so that have a unified view of our infrastructure. This registry is then exposed via DNS, an HTTP API, and a Web UI.
+          </aside>
+        </section>
 				<section>
-          <h2>Code Sample</h2>
+          <h1>Service Registration</h1>
+          <h2>Register services (IP + port) via config files or API</h2>
           	<pre><code data-trim data-noescape>
-              service {
-                name = "redis"
-                port = 8000
-                tags = ["global"]
+service {
+  name = "redis"
+  port = 8000
+  tags = ["primary","v1]
+}
               </code></pre>
+              <aside class="notes">
+                Here's an example of how to register a service with a local consul configuration. Here we're registering a Redis instance running on this node at port 8000. We're also registering two health checks. One is tcp (ping?) based and the other is local script based.
+              </aside>
 				</section>
+        <section>
+          <h1>Service Registration</h1>
+          <h2>Register services (IP + port) via config files or API</h2>
+          	<pre><code data-trim data-noescape>
+$ cat redist-api.json
+{
+  "ID": "redis1",
+  "Name": "redis",
+  "Tags": [
+    "primary",
+    "v1"
+  ],
+  "Port": 8000,
+  "Meta": {
+    "redis_version": "4.0"
+  }
+}
+
+$ curl --request PUT --data @redis-api.json \
+  http://127.0.0.1:8500/v1/agent/service/register
+              </code></pre>
+              <aside class="notes">
+                You can also register services by calling the Consul api via the local agent. Here's an example of register the same Redis service via the api.
+              </aside>
+        </section>
+        <section>
+          <h1>Service Discovery using DNS </h1>
+          <h2>Perform load balancing via DNS result shuffling</h2>
+          	<pre><code data-trim data-noescape>
+$ dig global.redis.service.consul
+; <<>> DiG 9.8.3-P1 <<>> slave.redis.service.consul
+; (3 servers found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 9046
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+;; WARNING: recursion requested but not available
+
+;; QUESTION SECTION:
+;global.redis.service.consul.	IN	A
+
+;; ANSWER SECTION:
+global.redis.service.consul. 0	IN	A	10.1.10.38
+              </code></pre>
+              <aside class="notes">
+                When it comes to service discovery, that can be done through DNS. 
+
+Here is an example of using the DNS interface. By querying for “redis.service.consul” we are asking for a healthy instance of the “redis” service. We can see Consul has provided us an IP address to communicate with. This integration is typically zero touch, since almost every application is able to use DNS.
+              </aside>
+        </section>
+        <section>
+          <h1>Service Discovery using HTTP </h1>
+          	<pre><code data-trim data-noescape>
+$ curl http://localhost:8500/v1/catalog/service/redis
+[
+  {
+    "ID": "52f73400-a352-80d2-9624-e70cc9996762",
+    "Node": "consul-client-2",
+    "Address": “10.1.10.38",
+    "Datacenter": "dc1",
+    "ServiceName": "redis",
+    "ServiceTags": [
+      “global",            ],
+    "ServiceAddress": "10.1.10.38",
+    "ServicePort": 24815,
+    "ModifyIndex": 31,
+   …
+              </code></pre>
+          <aside class="notes">
+            Here is an example of using the HTTP API. Here we’ve queried for all the instances of redis. We can see this output is much richer than DNS, with additional attributes like service tags and service port. The API can be used for deeper integrations, such as thick client side libraries or to configure load balancers and side cars. The API supports edge triggering, so we can get notified of changes in real time.
+          </aside>
+        </section>
+        <section>
+          <h1>Health Monitoring</h1>
+          <ul>
+            <li>Gossip layer provides liveness health check for nodes</li> 
+            <li>Agent runs health check locally</li> 
+            <li>Only state changes pushed to Consul servers</li>
+            <li>Removes unhealthy nodes from service discovery layer</li>
+            <li>Many types of checks available including Nagios-compatible scripts, Docker, HTTP and TCP</li>
+          </ul>
+          <aside class="notes">
+            With any service or node, we can register a variety of health checks, including TCP, HTTP, Nagios-style, and more. When any of these health checks change state, the update is pushed to the registry. Because the centrally registry is not pulling updates, its impossible to discern a node failure from an absence of updates. To solve this, Consul uses a lightweight gossip protocol to detect node failures. This architecture allows Consul to scale to thousands of machines per cluster.
+          </aside>
+        </section>
+        <section>
+          <h1>Health Checks</h1>
+          <h2>Create custom scripts with circuit breakers </h2>
+          	<pre><code data-trim data-noescape>
+{
+  "check": {
+    "id": "mem-util",
+    "name": "Memory utilization",
+    "script": "/usr/local/bin/check_mem.py",
+    "interval": "10s"
+  }
+}
+              </code></pre>
+          <aside class="notes">
+            Here's an example of how to define a health check. 
+          </aside>
+        </section>
+        <section>
+          <h1>WebUI</h1>
+          <img class="left plain" width="90%" src="images/consul-service-mesh/consul-web-ui.png" alt="" />
+          <aside class="notes">
+            Lastly we see an example of the Web interface. Here we can see a mix of healthy and unhealthy nodes running various services.
+          </aside>
+        </section>
 			</div>
 		</div>
 
